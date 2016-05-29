@@ -41,14 +41,10 @@ RUN cp carbon.conf.example carbon.conf
 RUN cp storage-schemas.conf.example storage-schemas.conf
 
 
-# Configure webapp
-WORKDIR /root/graphite/webapp/graphite
-RUN PYTHONPATH=/root/graphite/webapp python manage.py migrate --settings=graphite.settings
-
-
 
 EXPOSE 80 8000 8125/udp
 
 WORKDIR /root
 COPY init.sh init.sh
+RUN chmod +x init.sh
 CMD ["/usr/bin/supervisord"]

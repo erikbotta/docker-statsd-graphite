@@ -17,5 +17,10 @@ On linux docker is bind to `localhost`. Therefore to expose porst from docker co
 1. generate some data `echo "foo:3|c" | nc -u -w0 $docker_machine_ip 8125`
 1. view in browser: `http://$docker_machine_ip:8000/`
 
-# TODO
-* volumes
+## Volumes
+The data are not persistent between container restarts when running container without any volume mounted. To enable persistency mount volume `/root/graphite/storage`. Follows the example for testing purpose on MAC OSx:
+
+```
+docker run -d -p 8000:8000 -p 80:80 -p 8125:8125/udp -p 8001:8001 -v /Users/foo/storage:/root/graphite/storage --name stats stats
+```
+
